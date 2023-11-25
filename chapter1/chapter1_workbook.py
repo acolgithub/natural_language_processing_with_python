@@ -185,9 +185,6 @@ print(f"get most common 50 words in text 2:\n{fdist2.most_common(50)}\n")
 
 # generate cumulative frequency plot to analyze 50 most common words in first text
 fdist1.plot(50, cumulative=True)
-plt.savefig("figures/cumulative_frequency_plot.png")
-plt.close()
-
 
 # get words that only occur once (i.e. unique words or hapaxes) from frequency distribution
 # print(f"hapaxes of Mobdy Dick:\n{fdist1.hapaxes()}")  # large list, only uncomment if you wish to view it
