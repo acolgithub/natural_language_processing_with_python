@@ -1,0 +1,6 @@
+fuzzy 53
+chair 23
+books 29
+the 8
+kitchen 14
+food 27

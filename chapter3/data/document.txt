@@ -1,0 +1,1 @@
+This is a test file to practice extracting a local txt file using Python.
