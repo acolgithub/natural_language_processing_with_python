@@ -11,14 +11,20 @@ import numpy as np
 
 
 
-# 1.
+# Q1: Define a string s = 'colorless'. Write a Python statement that changes this to "colourless" using only
+#     the slice and concatenation operations.
+
 s = "colorless"
 s = s[0:4] + "u" + s[4:]
 print(s, "\n")
 
 
 
-# 2.
+# Q2: We can use the slice notation to remove the morphological endings on words. For example, 'dogs'[:-1]
+#     removes the last character of dogs, leaving dog. Use slice notation to remove the affixes from these words
+#     (we've inserted a hyphen to indicate the affix boundary, but omit this from your strings): dish-es, run-ning,
+#     nation-ality, un-do, pre-heat.
+
 word1 = "dish-es"
 word2 = "run-ning"
 word3 = "nation-ality"
@@ -32,13 +38,18 @@ print(word5[:-5], "\n")
 
 
 
-# 3.
+# Q3: We saw how we can generate an IndexError by indexing beyond the end of a string. Is it possible to
+#     construct an index that goes too far to the left, before the start of the string?
+
 test_string = "test"
 # print(test_string[-5])  # goes to far left
 
 
 
-# 4.
+# Q4: We can specify a "step" size for the slice. The following returns every second character within the slice:
+#     monty[6:11:2]. It also works in the reverse direction: monty[10:5:-2]. Try these for yourself, then
+#     experiment with different step values.
+
 test_sentence = "This is a test sentence to see subscripting with different step size."
 
 # print with step size 2
@@ -49,48 +60,61 @@ print(test_sentence[10:5:-2], "\n")
 
 
 
-# 5.
-print(test_sentence[::-1], "\n")  # prints backwards
+# Q5: What happens if you ask the interpreter to evaluate monty[::-1]? Explain why this is a reasonable result
+
+print(test_sentence[::-1], "\n")  # prints backwards, reasonable since it considers full slice with -1 step size
 
 
 
-# 6.
-# a.
+# Q6: Describe the class of strings matched by the following regular expressions.
+
+# a: [a-zA-Z]+
+
 print(f"The first regex matches strings consisting of alphabetical letters (both lower and upper case). There must be at least one character.")
 print(nltk.re_show(r"[a-zA-Z]+", "happy"), "\n")
 
-# b.
+# b: [A-Z][a-Z]*
+
 print(f"The second regex matches strings consisting of a single capital letter followed by zero or more lowercase letters.")
 print(nltk.re_show(r"[A-Z][a-z]*", "Happy"), "\n")
 
-# c.
+# c: p[aeiou]{,2}t
+
 print(f"The third regex matches strings consisting of the letter 'p' followed by at most 2 vowels and ending in t.")
 print(nltk.re_show(r"p[aeiou]{,2}t", "pat"), "\n")
 
-# d.
+# d: \d+(\.\d+)?
+
 print(f"The fourth regex matches strings consisting of a digit one or more times followed by a period and more digits (period and extra digits can appear at most one time in matched string).")
 print(nltk.re_show(r"\d+(\.\d+)?", "3.14.15"), "\n")
 
-# e.
+# e: ([^aeiou][aeiou][^aeiou])*
+
 print(f"The fifth regex matches the empty string as well as strings consisting of concatentations of 3 character strings each of which starts and ends with a non-vowel character with a vowel in the middle.")
 print(nltk.re_show(r"([^aeiou][aeiou][^aeiou])*", "patpataatcat"), "\n")
 
-# f.
+# f: \w+|[^\w\s]+
 print(f"The sixth regex matches postive number of alphabetical letteres or a positive number of characters which are not alphabetical or space.")
 print(nltk.re_show(r"\w+|[^\w\s]+", "%\nAb,&\n\r"), "\n")
 
 
 
-# 7.
-# a.
+# Q7: Write regular expression to match the following classes of strings:
+
+# a: A single determiner (assume that a, an, and the are the only determiners).
+
 print(f"a[n]?|the", "\n")
 
-# b.
+# b: An arithmetic expression using integers, addition, and multiplication, such as 2*3+8.
+
 print(f"\d+(\+\d+|\*\d+)+", "\n")
 
 
 
-# 8.
+# Q8: Write a utility function that takes a URL as its argument, and returns the contents of the URL, with all
+#     HTML markup removed. Use from urllib import request and then
+#     request.urlopen('http://nltk.org/').read().decode('utf8') to access the contents of the URL.
+
 def url_contents(url):
     
     # get url contents
@@ -106,8 +130,12 @@ print(url_contents("http://nltk.org/"), "\n")
 
 
 
-# 9.
-# a.
+# Q9: Save some text into a file corpus.txt. Define a function load(f) that reads from the file named in its sole
+#     argument, and returns a string containing the text of the file.
+
+# a: Use nltk.regexp_tokenize() to create a tokenizer that tokenizes the various kinds of punctuation in
+#    this text. Use one multi-line regular expression, with inline comments, using the verbose flag (?x).
+
 def load(f):
 
     # open file
@@ -128,7 +156,9 @@ tokenizer = nltk.regexp_tokenize
 print(tokenizer(text, pattern), "\n")
 
 
-# b.
+# b: Use nltk.regexp_tokenize() to create a tokenizer that tokenizes the following kinds of expression:
+#    monetary amounts; dates; names of people and organizations.
+
 text = "$3.14 $5 Alex Barry C DE words 11/12/2023 11-12-2023"
 pattern = r"""(?x)  # set flag to allow verbose regexps
 \$\d+(?:\.\d+)?
@@ -140,27 +170,44 @@ print(tokenizer(text, pattern), "\n")
 
 
 
-# 10.
+# Q10: Rewrite the following loop as a list comprehension
+#
+#      >>> sent = ['The', 'dog', 'gave', 'John', 'the', 'newspaper']
+#      >>> result = []
+#      >>> for word in sent:
+#      ...     word_len = (word, len(word))
+#      ...     result.append(word_len)
+#      >>> result
+#      [('The', 3), ('dog', 3), ('gave', 4), ('John', 4), ('the', 3), ('newspaper', 9)]
+
+
 sent = ["The", "dog", "gave", "John", "the", "newspaper"]
 result = []
 print([(word, len(word)) for word in sent], "\n")
 
 
 
-# 11.
+# Q11: Define a string raw containing a sentence of your own choosing. Now, split raw on some character other
+#      than space, such as 's'.
+
 raw = "This is a test sentence which I will tokenize using a non-space character."
 print(raw.split(sep="e"), "\n")
 
 
 
-# 12.
+# Q12: Write a for loop to print out the characters of a string, one per line.
+
 for c in "Test string":
     print(c)
 print("\n")
 
 
 
-# 13.
+# Q13: What is the difference between calling split on a string with no argument or with ' ' as the argument,
+#      e.g. sent.split() versus sent.split(' ')? What happens when the string being split contains tab
+#      characters, consecutive space characters, or a sequence of tabs and spaces? (In IDLE you will need to use
+#      '\t' to enter a tab character.)
+
 print("Test string".split())
 print("Test string".split(" "))
 print("Test\tstring".split())
@@ -169,7 +216,9 @@ print("\n")
 
 
 
-# 14.
+# Q14: Create a variable words containing a list of words. Experiment with words.sort() and sorted(words).
+#      What is the difference?
+
 words_list = ["This", "is", "a", "list", "of", "various", "words"]
 print(words_list)  # print list
 print(sorted(words_list))  # returns sorted list but keeps original list as is
@@ -180,7 +229,9 @@ print("\n")
 
 
 
-# 15.
+# Q15: Explore the difference between strings and integers by typing the following at a Python prompt: "3" * 7
+#      and 3 * 7. Try converting between strings and integers using int("3") and str(3).
+
 print("3"*7)  # prints seven 3's
 print(3*7)  # prints 21
 print(int("3")*7)  # prints 21
@@ -189,13 +240,25 @@ print("\n")
 
 
 
-# 16.
+# Q16: Use a text editor to create a file called prog.py containing the single line monty = 'Monty Python'. Next,
+#      start up a new session with the Python interpreter, and enter the expression monty at the prompt. You will get
+#      an error from the interpreter. Now, try the following (note that you have to leave off the .py part of the
+#      filename):
+#
+#      >>> from prog import monty
+#      >>> monty
+#
+#      This time, Python should return a value. You could also try import prog, in which case Python should be
+#      able to evaluate the expression prog.monty at the prompt.
+
 from data.prog import monty
 print(monty, "\n")
 
 
 
-# 17.
+# Q17: What happens when the formatting strings %6s and %-6s are used to display strings that are longer than
+#      six characters?
+
 short_word = "short"
 word = "much_longer"
 print("Test string, %6s" % short_word)  # right aligned
@@ -206,7 +269,11 @@ print("\n")
 
 
 
-# 18.
+# Q18: Read in some text from a corpus, tokenize it, and print the list of all wh-word types that occur. (wh-words
+#      in English are used in questions, relative clauses and exclamations: who, which, what, and so on.) Print
+#      them in order. Are any words dupllicated in this list, because of the presence of case distinctions or
+#      punctuation?
+
 learned_words = " ".join(brown.words(categories="learned"))
 tokenized_words = " ".join(tokenizer(learned_words, r"\w+"))
 wh_words = re.findall(r"wh(?:o|at|ich|ere|en|om|ose|y)", tokenized_words)
@@ -219,7 +286,11 @@ print("\n")
 
 
 
-# 19.
+# Q19: Create a file consisting of words and (made up) frequencies, where each line consists of a word, the
+#     space character, and a positive integer, e.g. fuzzy 53. Read the file into a Python list using
+#     open(filename).readlines(). Next, break each line into its two fields using split(), and convert the
+#     number into an integer using int(). The result should be a list of the form: [['fuzzy', 53], ...].
+
 with open("data/word_frequencies.txt", "r+") as f:
     word_frequencies_list = []
     for line in f:
@@ -231,7 +302,9 @@ print(word_frequencies_list, "\n")
 
 
 
-# 20.
+# Q20: Write code to access a favorite webpage and extract some text from it. For example, access a weather site
+#      and extract the forecast top temperature for your own town or city today.
+
 url = "https://weather.gc.ca/forecast/hourly/on-165_metric_e.html"
 html = request.urlopen(url).read().decode("utf8")
 raw = BeautifulSoup(html, "lxml")
@@ -271,7 +344,11 @@ print("\n")
 
 
 
-# 21.
+# Q21: Write a function unknown() that takes a URL as its argument, and returns a list of unknown words that
+#      occur on that webpage. In order to do this, extract all substrings consisting of lowercase letters (using
+#      re.findall()) and remove any items from this set that occur in the Words Corpus (nltk.corpus.words). Try
+#      to categorize these words manually and discuss your findings.
+
 def unknown(url):
     html = request.urlopen(url).read().decode("utf8")
     # soup = BeautifulSoup(html, "lxml")
@@ -303,7 +380,9 @@ def unknown(url):
 
 
 
-# 23.
+# Q23: Are you able to write a regular expression to tokenize text in such a way that the word don't is tokenized
+#      into do and n't? Explain why this regular expression won't work: <<n't|\w+>>
+
 test_word = "don't"
 test_regex = r"(\w+)(n't)"
 split_word = re.findall(test_regex, test_word)
@@ -312,7 +391,11 @@ print(f"The given regular expression will not work since it will include 'n' wit
 
 
 
-# 24.
+# Q24: Try to write code to convert text into hAck3r, using regular expressions and substitution, where e->3, i
+#      ->1, o->0, l->|, s->5, .->5w33t!, ate->8. Normalize the text to lowercase before converting it. Add
+#      more substitutions of your own. Now try to map s to two different values: $ for word-initial s, and 5 for
+#      word-internal s.
+
 hAck3r_dict = {"ate":"8", "e":"3", "i":"1", "o":"0", "l":"|", "^s":"$",
                "(?=.+)s": "5",  # used lookahead to check that there is a chracter in front of s
                "\.":"5w33t!"}
@@ -327,8 +410,12 @@ print(hAck3r_converter("slaepios ate ."), "\n")
 
 
 
-# 25.
-# a.
+# Q25: Pig Latin is a simple transformation of English text. Each word of the text is converted as follows: move
+#      any consonant (or consonant cluster) that appears at the start of the word to the end, then append ay, e.g.
+#      string->ingstray, idle->idleay. http://en.wikipedia.org/wiki/Pig_Latin
+
+# a: Write a function to convert a word to Pig Latin.
+
 def pig_latin_converter(word):
     if word[0:2].lower() == "qu":
         if word[0] == "Q":
@@ -352,19 +439,24 @@ sentence = "This is a test sentence for pig latin."
 pig_latin_sentence =  [pig_latin_converter(word) for word in sentence.split()]
 print(pig_latin_sentence, "\n")
 
-# b.
+# b: Write code that converts text, instead of individual words.
+
 def pig_latin_sentence(sentence):
     return " ".join([pig_latin_converter(word) for word in sentence.split()])
 print(pig_latin_sentence(sentence), "\n")
 
 print(pig_latin_converter("Stray"))
 
-# c.
+# c: Extend it further to preserve capitalization, to keep qu together (i.e. so that quiet becomes ietquay),
+#    and to detect when y is used as a consonant (e.g. yellow) vs a vowl (e.g. style)
+
 print(pig_latin_sentence("Quiet quiet"), "\n")
 
 
 
-# 26.
+# Q26: Download some text from a language that has vowel harmony (e.g. Hungarian), extract the vowel
+#      sequence of words, and create a vowel bigram table
+
 url = "https://hu.wikipedia.org/wiki/Magyar_nyelv"
 html = request.urlopen(url).read().decode("utf8")
 soup = BeautifulSoup(html, "lxml").text
@@ -376,7 +468,13 @@ print("\n")
 
 
 
-# 27.
+# Q27: Python's random module includes a function choice() which randomly chooses an item from a sequence,
+#      e.g. choice("aehh ") will produce one of four possible characters, with the letter h being twice as frequent
+#      as the others. Write a generator expression that produces a sequence of 500 randomly chosen letters drawn
+#      from the string "aehh ", and put this expression inside a call to the ''.join() function, to concatenate them
+#      into one long string. You should get a result that looks like uncontrolled sneezing or maniacal laughter:
+#      he  haha ee  heheeh eha. Use split() and join() again to normalize the whitespace in this string. 
+
 def random_string(n):
     random_list = []
     for i in range(n):
@@ -387,7 +485,14 @@ print(" ".join(random_string(500).split()), "\n")
 
 
 
-# 29.
+# Q29: Readability measures are used to score the reading difficulty of a text, for the purposes of selecting texts
+#      of appropriate difficulty for language learners. Let us define μw to be the average number of letters per
+#      word, and μs to be the average number of words per sentence, in a guven text. The automated Readability
+#      Index (ARI) of the text is defined to be: 4.71 μw + 0.5 μs - 21.43. Compute the ARI score for various
+#      sections of the Brown Corpus, including section f (lore) and j (learned). Make use of the fact that
+#      nltk.corpus.brown.words() produces a sequence of words, while nltk.corpus.brown.sents() produces a
+#      sequence of sentences.
+
 lore_text = " ".join(brown.words(categories="lore"))
 learned_text = " ".join(brown.words(categories="learned"))
 lore_text = re.findall(r"[a-zA-Z]+", lore_text)
@@ -415,7 +520,9 @@ print(f"learned ARI scoe: {automated_readability_index('learned')}", "\n")
 
 
 
-# 30.
+# Q30: Use the Porter Stemmer to normalize some tokenized text, calling the stemmer on each word. Do the
+#      same thing with the Lancaster Stemmer and see if you observe any differences.
+
 porter_stem = nltk.PorterStemmer()
 lancaster_stem = nltk.LancasterStemmer()
 
@@ -427,7 +534,12 @@ print([lancaster_stem.stem(t) for t in text], "\n")
 
 
 
-# 31.
+# Q31: Define the variable saying to contain the list
+#      ['After', 'all', 'is', 'said', 'and', 'done', ',', 'more',
+#      'is', 'said', 'than', 'done', '.']. Process this list using a for loop, and store the length of each word
+#      in a new list lengths. Hint: begin by assigning the empty list to lengths, using lengths = []. Then each
+#      time through the loop, use append() to add another length value to the list. Now do the same thing using a
+#      list comprehension
 
 saying = ["After", "all", "is", "said", "and", "done", ",", "more",
           "is", "said", "than", "done", "."]
@@ -441,43 +553,62 @@ print(lengths == lengths2, "\n")
 
 
 
-# 32.
+# Q32: Define a variable silly to contain the string:
+#      'newly formed bland ideas are inexpressible in an infuriating
+#      way'. (This happens to be the legitimate interpretation that bilingual English-Spanish speakers can assign to
+#      Chomsky's famous nonsense phrase, colorless green ideas sleep furiously according to Wikipedia). Now
+#      write code to perform the following tasks
+
 silly = "newly formed bland ideas are inexpressible in an infuriating way"
 
-# a.
+# a: Split silly into a list of strings, one per word, using Python's split() operation, and save this to a
+#    variable called bland.
+
 bland = silly.split()
 print(bland, "\n")
 
-# b.
+# b: Extract the second letter of each word in silly and join them into a string, to get 'eoldrnnnna'.
+
 second_letters = "".join([word[1] for word in bland])
 print(second_letters, "\n")
 
-# c.
+# c: Combine the words in bland back into a single string, using join(). Make sure the words in the
+#    resulting string are separated with whitespace.
+
 joined_word = " ".join(bland)
 print(joined_word, "\n")
 
-# d.
+# d: Print the words of silly in alphabetical order, one per line.
+
 alphabetical_words = sorted(bland)
 print(alphabetical_words, "\n")
 
 
 
-# 33.
+# 33: The index() function can be used to look up items in sequences. For example,
+#     'inexpressible'.index('e') tells us the index of the first position of the letter e.
 
-# a.
+# a: What happens when you look up a substring e.g. 'inexpressible'.index('re')?
+
 print("inexpressible".index("re"))
 print(f"we get the first index of the first occurrence of the substring\n")
 
-# b.
+# b: Define a variable words containing a list of words. Now use words.index() to look up a position of
+#    an individual word.
+
 words = ["this", "is", "a", "list", "of", "some", "words"]
 print(f"index position of 'list' is: {words.index('list')}\n")
 
-# c.
+# c: Define a variable silly as in the exercise above. Use the index() function in combination with list
+#    slicing to build a list phrase consisting of all the words up to (but not including) in in silly
+
 print(silly[:silly.index("in") + len("inexpressible")], "\n")
 
 
 
-# 34.
+# Q34: Write code to convert nationality adjectives like Canadian and Australian to their corresponding nouns
+#      Canada and Australia (see http://en.wikipedia.org/wiki/List_of_adjectival_forms_of_place_names).
+
 url = "https://en.wikipedia.org/wiki/List_of_adjectival_and_demonymic_forms_of_place_names"
 html = request.urlopen(url).read().decode("utf8")
 soup = BeautifulSoup(html, "lxml")
@@ -522,7 +653,10 @@ print("\n")
 
 
 
-# 35.
+# Q35: Read the LanguageLog post on phrases of the form as best as p can and as best p can, where p is a
+#      pronoun. Investigate this phenomenon with the help of a corpus and the findall() method for searching
+#      tokenized text described in 3.5. http://itre.cis.upenn.edu/~myl/languagelog/archives/002733.html
+
 pronoun = ["i", "you", "he", "she", "it", "we", "they"]
 phrase1 = "as best as "
 phrase2 = "as best "
@@ -569,16 +703,20 @@ print([word for word in lolcat_genesis])
 
 
 
-# 38.
+# Q38: An interesting challenge for tokenization is words that have been split across a line-break. E.g. if long-
+#      term is split, then we have the string long-\nterm.
 
-# a.
+# a: Write a regular expression that identifies words that are hyphenated at a line-break. The expression
+#    will need to include the \n character.
+
 def find_line_broken(word):
     return re.findall(r"[a-zA-Z]+-\n[a-zA-Z]+", word)
 
 print(find_line_broken("test-\nword"))
 print(find_line_broken("another test-\nword"))
 
-# b.
+# b: Use re.sub() to remove the \n character from these words.
+
 def remove_newline_character(word_list):
     return_list = []
     for word in word_list:
@@ -587,13 +725,16 @@ def remove_newline_character(word_list):
 
 print(remove_newline_character(find_line_broken("here is a-\nlist of test-\nwords")))
 
-# c.
+# c: How might you identify words that should not remain hyphenated once the newline is removed, e.g.
+#    'encyclo-\npedia'?
+
 print(f"You can check if the portion of the word before the hyphen is a member of common words (e.g. word corpus). If not, then the hyphen may be just due to not fitting on the line.")
 print("\n")
 
 
 
-# 39.
+# Q39: Read the Wikipedia entry on Soundex. Implement this algorithm in Python
+
 def american_soundex(word, sql=False):
 
     # store first letter
@@ -664,14 +805,30 @@ print(american_soundex("Honeyman", False), "\n")
 
 
 
-# 41.
+# Q41: Rewrite the following nested loop as a nested list comprehension:
+#
+#      >>> words = ['attribution', 'confabulation', 'elocution',
+#                   'sequoia', 'tenacious', 'unidirectional']
+#      >>> vsequences = set()
+#      >>> for word in words:
+#      ...     vowels = []
+#      ...     for char in word:
+#      ...         if char in 'aeiou':
+#      ...             vowels.append(char)
+#      ...     vsequences.add(''.join(vowels))
+#      >>> sorted(vsequences)
+#      ['aiuio', 'eaiou', 'eouio', 'euoia', 'oauaio', 'uiieioa']
+
 words = ["attribution", "confabulation", "elocution",
          "sequoia", "tenacious", "unidirectional"]
 print(sorted(set("".join(re.findall(r"[aeiou]", word)) for word in words)), "\n")
 
 
 
-# 42.
+# Q42: Use WordNet to create a semantic index for a text collection. Extend the concordance search program in
+#      3.6, indexing each word using the offset of its first synset, e.g. wn.synsets('dog')[0].offset (and
+#      optionally the offset of some of its ancestors in the hypernym hierarchy).
+
 class IndexedText(object):
 
     def __init__(self, stemmer, text):
@@ -701,7 +858,11 @@ text.concordance("lie")
 
 
 
-# 43.
+# Q43: With the help of a multilingual corpus such as the Universal Declaration of Human Rights Corpu
+#      (nltk.corpus.udhr), and NLTK's frequency distribution and rank correlation functionaity (nltk.FreqDist,
+#      nltk.spearman_correlation), develop a system that guesses the language of a previously unseen text. For
+#      simplicity, work with a single character encoding and just a few languages.
+
 # get latin1 languages
 latin1_languages = [language for language in udhr.fileids() if "Latin1" in language]
 
@@ -801,7 +962,10 @@ print("\n")
 
 
 
-# 44.
+# Q44: Write a program that processes a text and discovers cases where a word has been used with a novel
+#      sense. For each word, compute the WordNet similarity between all synsets of the word and all synsets of the
+#      words in its context. (Note that this is a crude approach; doing it will is a difficult, open research problem.)
+
 sentence = "An unusual test sentence."
 split_sentence = sentence.split()
 
