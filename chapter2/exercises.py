@@ -297,7 +297,8 @@ print(genres_df, "\n")
 print(f"genre with minimum lexical diversity: {genres_df.iloc[genres_df['lex_diversity'].idxmin(axis=0, skipna=True), 0]}\n")
 
 
-# 17.
+
+# Q17: Write a function that finds that 50 most frequently ocurring words of a text that are not stopwords.
 
 # get 50 most frequent words in text that are not stop words
 def most_freq_nonstop(text):
@@ -311,7 +312,8 @@ print(f"Top 50 word in Moby Dick that are not stopwords in english:\n{most_freq_
 
 
 
-# 18.
+# Q18: Write a program to print the 50 most frequent bigrams (pairs of adjacent words) of a text, omitting
+#      bigrams that contain stopwords.
 
 # get 50 most frequent bigrams in some text and which have no stop words in either component
 def bigrams_nonstop(text):
@@ -329,7 +331,9 @@ print(f"Top 50 bigrams in Mobdy Dick where neither word is a stop word:\n{bigram
 
 
 
-# 19.
+# Q19: Write a program to create a table of word frequencies by genre, like the one given in 1 for modals.
+#      Choose your own words and try to find words whose presence (or absence) is typical of a genre. Discuss
+#      your findings.
 
 # make conditional frequency over genre, word pairs
 cfd = nltk.ConditionalFreqDist(
@@ -344,7 +348,9 @@ cfd.tabulate(conditions=genres, samples=words)  # tabulate count of each sample 
 print("\n")
 
 
-# 20.
+
+# Q20: Write a function word_freq() that takes a word and the name of a section of the Brown Corpus as
+#      arguments, and computes the frequency of the word in that section of the corpus.
 
 def word_freq(brown_section, word):  # input section of Brown corpus and desired word
     brown_section_text = brown.words(categories=brown_section)  # get text for desired section
@@ -355,7 +361,8 @@ print(f"Word frequency of 'world' in 'adventure' text: {word_freq('adventure', '
 
 
 
-# 21.
+# Q21: Write a program to guess the number of syllables contained in a text, amking use of the CMU
+#      Pronouncing Dictionary.
 
 # predict number of syllables by counting parts of cmu dictionary entries which have a vowel (syllables are typically formed around a vowel)
 def syllable_guesser(text):
@@ -369,7 +376,8 @@ print(syllable_guesser("adventure"), "\n")
 
 
 
-# 22.
+# Q22: Define a function hedge(text) which processes a text and produces a new version with the word 'like'
+#      between every third word.
 
 def hedge(text):
     text_words = text.split()  # split up text
@@ -385,9 +393,15 @@ print(hedge("This is a test sentence for the function."))
 
 
 
-# 23.
+# Q23: Zipf's Law: Let f(w) be the frequency of a word w in free text. Suppose that all words of a text are
+#      ranked according to their frequency, with the most frequent word first. Zipf's law states that the frequency
+#      of a word type is inversely proportional to its rank (i.e. fxr=k, for some constant k). For example, the
+#      50th most common word type should occur three times as frequently as the 150th most common word type.
 
-# a.
+# a: Write a function to process a large text and plot word frequency against word rank using pylab.plot.
+#    Do you confirm Zipf's law? (Hint: it helps to use a logarithmic scale). What is going on at the
+#    extreme ends of the plotted line?
+
 # create function to illustrate zipf law by plotting frequency against rank
 def zipf_law_plot(text, plot_name):
     text_words = text.split()  # split up input text
@@ -416,7 +430,11 @@ zipf_law_plot(" ".join(gutenberg.words("melville-moby_dick.txt")), "zipf_law_mob
 zipf_law_plot(" ".join(gutenberg.words("austen-persuasion.txt")), "zipf_law_austen")
 
 
-# b.
+# b: Generate random text, e.g., using random.choice("abcdefg "), taking care to include the space
+#    character. You will need to import random first. Use the string concatenation operator to accumulate
+#    characters into a (very) long string. Then tokenize this string, and generate the Zipf plot as before,
+#    and compare the two plots. What do you make of Zipf's Law in the light of this?
+
 random_text = ""
 random_start = random.randint(1, 5000)
 random_end = random.randint(10000, 15000)
@@ -430,9 +448,11 @@ print(f"The plots seem consistent with Zipf's law.\n")
 
 
 
-# 24.
+# Q24: Modify the text generation program in 2.2 further, to do the following tasks:
 
-# a.
+# a: Store the n most likely words in a list words then randomly choose a word from the list using
+#    random.choice(). (You will need to import random first.)
+
 # generate text with given starter word
 def generate_model(cfdist, word, num=15, n=1):
     for i in range(num):  # iterate for desired length of text
@@ -447,7 +467,12 @@ cfd =nltk.ConditionalFreqDist(bigrams)  # get conditional frequency distribution
 generate_model(cfdist=cfd, word="living", num=15, n=3)  # generate new text
 print("\n")
 
-# b., c.
+# b,c : Select a particular genre, such as a section of the Brown Corpus, or a genesis translation, one of the
+#       Gutenberg texts, or one of the Web texts. Train the model on this corpus and get it to generate random
+#       text. You may have to experiment with different start words. How intelligible is the text? Discuss the
+#       strengths and weaknesses of this method of generating random text.
+#       Now train your system using two distinct genres and experiment with generating text in the hybrid
+#       genre. Discuss your observations.
 start_words = ["After", "We", "In", "Beginning"]  # get starter words
 
 # get texts
@@ -465,7 +490,8 @@ for starter in start_words:
 
 
 
-# 25.
+# Q25: Define a function find_language() that takes a string as its argument, and returns a list of languages that
+#      have that string as a word. Use the udhr corpus and limit your searches to files in the Latin-1 encoding.
 
 # get Latin1 languages
 latin1_languages = [language for language in udhr.fileids() if "Latin1" in language]
@@ -478,7 +504,9 @@ print(f"List of Latin1 encoded languages containing word: {find_language('umat')
 
 
 
-# 26.
+# Q26: What is the branching factor of the noun hypernym hierarchy? I.e. for every noun synset that has
+#      hyponyms -- or children in the hypernym hierarchy -- howmany do they have on average? You can get all
+#      noun synsets using wn.all_synsets('n').
 
 # get all noun synsets
 all_nouns= wn.all_synsets("n")
@@ -497,7 +525,9 @@ print(f"Branching factor of noun hypernym hierarchy is: {branching_factor}\n")
 
 
 
-# 27.
+# Q27: The polysemy of a word is the number of senses it has. Using WordNet, we can determine that the noun
+#      dog has 7 senses with: len(wn.synets('dog', 'n')). Compute the average polysemy of nouns, verbs,
+#      adjectives and adverbs according to WordNet.
 
 # dog has 7 senses as a noun
 print(f"Dog has 7 senses as noun {len(wn.synsets('dog', 'n'))}\n")
@@ -521,7 +551,13 @@ print("\n")
 
 
 
-# 28.
+# Q28: Use one of the predefined similarity measures to score the similarity of each of the following pairs of
+#      words. Rank the pairs in order of decreasing similarity. How close is your ranking to the order given here,
+#      an order that was established experimentally by (Miller & Charles: 1998): car-automobile, gem-jewel,
+#      journey-voyage, boy-lad, coast-shore, asylum-madhouse, magician-wizard, midday-noon, furnace-stove,
+#      food-fruit, bird-cock, bird-crane, tool-implement, brother-monk, lad-brother, crane-implement, journey-car,
+#      monk-oracle, cemetery-woodland, food-rooster, coast-hill, forest-graveyard, shore-woodland, monk-slave,
+#      coast-forest, lad-wizard, chord-smile, glass-magician, rooster-voyage, noon-string.
 
 # define path similarity function
 def similarity(word1, word2, similarity_function):
