@@ -15,7 +15,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import random
 
-# 1.
+# Q1: Create a variable 'phrase' containing a list of words. Review the operations described in the previous
+#     chapter, including addition, multiplication, indexing, slicing, and sorting.
 
 phrase = ["This", "is", "a", "list", "of", "words"]
 print(f"Addition: {phrase + ['.']}")  # apply list addition
@@ -24,7 +25,10 @@ print(f"Indexing: {phrase[3]}")  # apply indexing
 print(f"Slicing: {phrase[0][1:3]}")  # applying slicing
 print(f"Sorting: {sorted(phrase)}\n")  # apply sorting
 
-# 2.
+
+
+# Q2: Use the corpus module to explore 'austen-persuasion.txt'. How many word tokens does this book have?
+#     How many word types?
 
 # get number of tokens in text
 austen_text = gutenberg.words("austen-persuasion.txt")
@@ -38,14 +42,21 @@ print(types, "\n")
 # question probably meant this
 print(f" Austen Persuasion has {len(set(austen_text))} word types.\n")
 
-# 3.
+
+
+# Q3: Use the Brown corpus reader nltk.corpus.brown.words() or the Web text corpus reader
+#     nltk.corpus.webtext.words() to access some sample text in two different genres.
 
 # print categories and text in specific categories
 print(brown.categories(), "\n")
 print(brown.words(categories="adventure"), "\n")
 print(brown.words(categories="mystery"), "\n")
 
-# 4.
+
+
+# Q4: Read in the texts of the State of the Union addresses, using the state_union corpus reader. Count
+#     occurrences of men, women, and people in each document. What has happened to the usage of these words
+#     over time?
 
 # get plot of counts of men, women, and people in state of union address against time
 cfd = nltk.ConditionalFreqDist(
@@ -57,7 +68,11 @@ cfd = nltk.ConditionalFreqDist(
 
 cfd.plot()
 
-# 5.
+
+
+# Q5: Investigate the holonym-meronym relations for some nouns. Remember that there are three kinds of
+#     holonym-meronym relation, so you need to use: member_meronyms(), part_meronyms(),
+#     substance_meronyms(), member_holonyms(), part_holonyms(), and substance_holonyms().
 
 # print synsets, definitions, meronyms, and holonyms
 noun = "orange"
@@ -91,18 +106,31 @@ print(wn.synset("cloth.n.01").substance_holonyms())
 print(wn.synset("cloth.n.01").member_holonyms(), "\n")
 
 
-# 6.
+
+# Q6: In the discussion of comparative wordlists, we created an object called translate which you could look
+#     up using words in both German and Spanish in order to get corresponding words in English. What problem
+#     might arise with this approach? Can you suggest a way to avoid this problem?
 
 print(f"A problem could arise if the word has meaning in both German and Spanish (which could be different).\nWe could add a requirement that we specify which language we want it translated from.")
 
-# 7.
+
+
+# Q7: According to Strunk and White's 'Elements of Style', the word 'however', used at the start of a sentence,
+#     means "in whatever way" or "to whatever extent", and not "nevertheless". They give this example of correct
+#     usage: However you advise him, he will probably do as he thinks best.
+#     (http://www.bartleby.com/141/strunk3.html) Use the concordance tool to study actual usage of this word in
+#     the various texts we have been considering. See also the LanguageLog posting "Fossilized prejudices about
+#     'however' at http://itre.cis.upenn.edu/~myl/languagelog/archives/001913.html"
 
 # look at usage of 'However' at the start of a sentence
 print(gutenberg.fileids())
 nltk.Text(gutenberg.words("austen-emma.txt")).concordance("However")
 print("\n")
 
-# 8.
+
+
+# Q8: Define a conditional frequency distribution over the Names corpus that allows you to see which initial
+#     letteres are more frequent for males vs. females (cf. 4.4).
 
 # plot male/female against first initial
 cfd = nltk.ConditionalFreqDist(
@@ -113,7 +141,11 @@ cfd = nltk.ConditionalFreqDist(
 
 cfd.plot()
 
-# 9.
+
+
+# Q9: Pick a pair of texts and study the difference between them, in terms of vocabulary, vocabulary richness,
+#     genre, etc. Can you find pairs of words which have quite different meanings across the two texts, such as
+#     monstous in Moby Dick and in Sense and Sensibility?
 
 # look at differences between texts in terms of vocabulary and vocabulary richness
 print(gutenberg.fileids())
@@ -131,7 +163,13 @@ print(f"Vocabulary richness percentage of Austen: {austen_vocabulary}")
 print("\n")
 
 
-# 10.
+
+# Q10: Read the BBC News article: UK's Vicky Pollards 'left behind'
+#      http://news.bbc.co.uk/1/hi/education/6173441.stm. The article gives the following statistic about teen
+#      language: "the top 20 words used, including yeah, no, but and like, account for around a third of all words."
+#      How many word types account for a third of all word tokens, for a variety of text sources? What do you
+#      conclude about this statistic? Read more about this on LanguageLog, at
+#      http://itre.cis.upenn.edu/~myl/languagelog/archives/003993.html.
 
 # get frequency distribution of words in Moby Dick
 moby_dick_fd = FreqDist(word.lower() for word in moby_dick_text if word.isalpha())
@@ -148,7 +186,10 @@ print(f"It appears that not many words make up most word tokens.")
 print(f"In particular, 20 words seems enough to get a third of words in a text.")
 
 
-# 11.
+
+# Q11: Investigate the table of modal distributions and look for other patterns. Try to explain them in terms of
+#      your own impressionistic understanding of the different genres. Can you find other closed classes of words
+#      that exhibit significant differences across different genres? 
 
 # get modals
 modals = ["can", "could", "may", "might", "must", "will"]
@@ -180,14 +221,18 @@ w_cfd.tabulate(conditions=brown.categories(), samples=w_questions)
 print(f"Distribution of 'w' questions seems to distinguish genres.", "\n")
 
 
-# 12.
+
+# Q12: The CMU Pronouncing Dictionary contains multiple pronounciations for certain words. How many distinct
+#      words does it contain? What fraction of words in this dictionary have more than one possible pronounciation?
 
 # find fraction of words in cmu pronouncing dictionary with more than one possible pronounciation
 print(f"The cmu dictionary has {len(cmudict.entries())} distinct words.")
 print(f"{100*len([word for word, pron in cmudict.entries() if len(pron)>1])/len(cmudict.entries())}% of the words in the cmu dictionary have more than one possible pronounciation.\n")
 
 
-# 13.
+
+# Q13: What percentage of noun synsets have no hyponyms? You can get all noun synsets using
+#      wn.all_synsets('n').
 
 # get all nouns
 all_nouns = [noun for noun in wn.all_synsets("n")]
@@ -196,7 +241,8 @@ print(f"Percentage of noun synsets with no hyponyms: {100*len(nouns_no_hyponyms)
 
 
 
-# 14.
+# Q14: Define a function supergloss(s) that takes a synset s as its argument and returns a string consisting of the
+#      concatentation of the definition of s, and the definitions of all the hypernyms and hyponyms of s.
 
 # takes in synset and provides concatenation of its defiition and the definition of its hypernyms and hyponyms
 def supergloss(s):
@@ -218,7 +264,7 @@ print(supergloss(wn.synsets("car")))
 
 
 
-# 15.
+# Q15: Write a program to find all words that occur at least three times in the Brown Corpus.
 
 # count all words that occur at least there times in the Brown corpus
 def brown_corpus_three():
@@ -230,7 +276,9 @@ print(brown_corpus_three(), "\n")
 
 
 
-# 16.
+# Q16: Write a program to generate a table of lexical diversity scores (i.e. token/type ratios), as we saw in 1.1.
+#      Include the full set of Brown Corpus genres (nltk.corpus.brown.categories()). Which genre has the lowest
+#      diversity (greatest number of tokens per type)? Is this what you would have expected?
 
 genres = nltk.corpus.brown.categories()  # get genres from brown corpus
 tokens = [len(brown.words(categories=genre)) for genre in genres]  # get lengths of text from each genre
