@@ -2,18 +2,20 @@
 
 
 
-# 1.
+# Q1: Find out more about sequence objects using Python's help facility. In the interpreter, type help(str),
+#     help(list), and help(tuple). This will give you a full list of the functions supported by each type. Some
+#     functions have special names flanked with underscore; as the help documentation shows, each such
+#     function corresponds to something more familiar. For example x.__getitem__(y) is just a long-winded way
+#     of saying x[y].
+
 help(str)
 help(list)
 help(tuple)
 
 
 
-# 2.
+# Q3: Find out how to create a tuple consisting of a single item. There are at least two ways to do this.
 
-
-
-# 3.
 single = (1,)
 single2 = tuple([1])
 print(single)
@@ -21,7 +23,10 @@ print(single2, "\n")
 
 
 
-# 4.
+# Q4: Create a list words = ['is', 'NLP', 'fun', '?']. Use a series of assignment statements (e.g.
+#     words[1] = words[2]) and a temporary variable tmp to transform this list into the list
+#     ['NLP', 'is', 'fun', '!']. NOw do the same transformation using tuple assignment.
+
 words = ["is", "NLP", "fun", "?"]
 temp = words[0]
 words[0] = words[1]
@@ -35,18 +40,19 @@ print(words2, "\n")
 
 
 
-# 5.
+# Q6: Does the method for creating a sliding window of n-grams behave correctly for the two limiting cases: n
+#     = 1, and n=len(sent)?
 
-
-
-# 6.
 sent = ['The', 'dog', 'gave', 'John', 'the', 'newspaper']
 [print([sent[i:i+n] for i in range(len(sent)-n + 1)]) for n in [1, len(sent)]]
 print("\n")
 
 
 
-# 7.
+# Q7: We pointed out that when empty strings and empty lists occur in the condition part of an if clause, they
+#     evaluate to False. In this case, they are said to be occurring in a Boolean context. Experiment with different
+#     kind of non-Boolean expressions in Boolean contexts, and see whether they evaluate as True or False.
+
 if 1:
     if 2.0:
         if "a":
@@ -56,7 +62,11 @@ if 1:
 
 
 
-# 8.
+# Q8: Use the inequality operators to compare strings, e.g. 'Monty' < 'Python'. What happens when you do
+#     'Z' < 'a'? Try pairs of strings which have a common prefix, e.g. 'Monty' < 'Montague'. Read up on
+#     "lexicographical sort" in order to understand what is going on here. Try comparing structured objects, e.g.
+#     ('Monty', 1) < ('Monty', 2). Does this behave as expected?
+
 string1, string2 = "Monty", "Python"
 print(string1 < string2)
 string1, string2 = "Z", "a"
@@ -68,15 +78,19 @@ print(struc_string1 < struc_string2, "\n")
 
 
 
-# 9.
+# Q9: Write code that removes whitespace at the beginning and end of a string, and normalizes whitespace
+#     between words to be a single space character.
+
 input_string = "   test string   "
 input_string2 = "\n\n   \r\ranother\rtest    "
 
-# a.
+# 1. do this task using split() and join()
+
 print(" ".join(input_string.split()))
 print(" ".join(input_string2.split()), "\n")
 
-# b.
+# 2. do this task using regular expression substitutions
+
 import re
 
 print(re.findall(r"\s*(\S.*\S)\s*", input_string))
@@ -84,7 +98,8 @@ print(re.findall(r"\s*(\S.*\S)\s*", input_string2), "\n")
 
 
 
-# 10.
+# Q10: Write a program to sort words by length. Define a helper function cmp_len which uses the cmp
+#      comparison function on word lengths.
 
 def cmp_len(word1, word2):
     return True if len(word1) < len(word2) else False
@@ -99,20 +114,27 @@ print(cmp_len(word_arr[1], word_arr[3]), "\n")
 
 
 
-# 11.
+# Q11: Create a list of words and store it in a variable sent1. Now assign sent2 = sent1. Modify one of the
+#      items in sent1 and verify that sent2 has changed.
+
 sent1 = ["this", "is", "an", "array", "of", "words"]
 sent2 = sent1
 sent1[4] = "modified"
 print(sent1)
 print(sent2)
 
-# a.
+# a: Now try the same exercise but instead assign sent 2 = sent1[:]. Modify sent1 again and see what
+#    happens to sent2. Explain
+
 sent2 = sent1[:]
 sent1[4] = "again"
 print(sent1)
 print(sent2)
 
-# b.
+# b: Now define text1 to be a list of lists of strings (e.g. to represent a text consisting of multiple
+#    sentences.) Now assign text2 = text1[:], assign a new value to one of the words, e.g.
+#    text[1][1] = 'Monty'. Check what this did to text2. Explain.
+
 text1 = [["This", "is", "a", "list", "to", "simulate", "text", "."], ["It", "has", "multiple", "sentences", "."]]
 text2 = text1[:]
 text1[1][1] = "Monty"
@@ -121,7 +143,9 @@ print(text2)
 print(f"""text2 has its second component list modified since the inner lists have their object reference copied.
 Only the outer arrays have entries copied.\n""")
 
-# c.
+# c: Load Python's deepcopy() function (i.e. from copy import deepcopy), consult its documentation, and
+#    test that it makes a fresh copy of any object.
+
 from copy import deepcopy
 
 sent1_new = ["this", "is", "an", "array", "of", "words"]
@@ -132,7 +156,11 @@ print(sent2_new)
 
 
 
-# 12.
+# Q12: Initialize an n-by-m list of lists of empty strings using list multiplication, e.g.
+#      word_table = [[''] * n] * m. What happens when you set one of its values, e.g.
+#      word_table[1][2] = "hello"? Explain why this happens. Now write an expression using range() to
+#      construct a list of lists, and show that it does not have this problem.
+
 n = 5
 m = 6
 word_table = [[''] * n] * m
@@ -148,7 +176,10 @@ print(new_word_table, "\n")
 
 
 
-# 13.
+# Q13: Write code to initialize a two-dimensional array of sets called word_vowels and process a list of words,
+#      adding each word to word_vowels[l][v] where l is the length of the word and v is the number of vowels it
+#      contains.
+
 def vowel_count(word):
     return len(re.sub("[^aeiou]", "", word))
 
@@ -163,7 +194,9 @@ print(word_vowels)
 print("\n")
 
 
-# 14.
+# Q14: Write a function novel1o(text) that prints any word that appeared in the last 10% of a text that had not
+#      been encountered earlier.
+
 def novel10(text):
     # get vocabulary of start and end portion of text
     text_start = set(text[:-int(0.1*len(text))])
@@ -177,7 +210,9 @@ novel10(test)
 
 
 
-# 15.
+# Q15: Write a program that takes a sentence expressed as a single string, splits it and counts up the words. Get
+#      it to print out each word and the word's frequency, one per line, in alphabetical order.
+
 from nltk.probability import FreqDist
 
 def word_freq_func(sent):
@@ -204,9 +239,17 @@ print("\n")
 
 
 
-# 16.
+# Q16: Read up on Gematria, a method for assigning numbers to words, and for mapping between words having
+#      the same number to discover the hidden meaning of texts (http://en.wikipedia.org/wiki/Gematria,
+#      http://essenes.net/gemcal.htm).
 
-# a.
+# a: Write a function gematria() that sums the numerical values of the letters of a word, according to the
+#    letter values in letter_vals:
+#
+#    >>> letter_vals = {'a':1, 'b':2, 'c':3, 'd':4, 'e':5, 'f':80, 'g':3, 'h':8,
+#    ... 'i':10, 'j':10, 'k':20, 'l':30, 'm':40, 'n':50, 'o':70, 'p':80, 'q':100,
+#    ... 'r':200, 's':300, 't':400, 'u':6, 'v':6, 'w':800, 'x':60, 'y':10, 'z':7}
+
 letter_vals = {'a':1, 'b':2, 'c':3, 'd':4, 'e':5, 'f':80, 'g':3, 'h':8,
 'i':10, 'j':10, 'k':20, 'l':30, 'm':40, 'n':50, 'o':70, 'p':80, 'q':100,
 'r':200, 's':300, 't':400, 'u':6, 'v':6, 'w':800, 'x':60, 'y':10, 'z':7}
@@ -216,7 +259,9 @@ def gematria(word):
 
 print(gematria("word"), "\n")
 
-# b.
+# b: Process a corpus (e.g. nltk.corpus.state_union) and for each document, count how many of its
+#    words have the number 666.
+
 from nltk.corpus import state_union
 
 def is_ascii(word):
@@ -233,7 +278,9 @@ for fileid in state_union.fileids():
     print(f"{fileid} has {sum([1 for word in text if gematria(word)==666])} words of gematria 666\n")
 print("\n")
 
-# c.
+# c: Write a function decode() to process a text, randomly replacing words with their Gematria
+#    equivalents, in order to discover the "hidden meaning" of the text.
+
 import numpy as np
 
 def decode(text, p=0.01):
@@ -250,7 +297,8 @@ print(decode(state_union.words("2006-GWBush.txt")), "\n")
 
 
 
-# 17.
+# Q17: Write a function shorten(text, n) to process a text, omitting the n most frequently occuring words of
+#      the text. How readable is it?
 
 def shorten(text, n):
     # remove punctuation, make lowercase, check if ascii
@@ -273,11 +321,10 @@ print("\n")
 
 
 
-# 18.
+# Q19: Write a list comprehension that sorts a list of WordNet synsets for proximity to a given synset. For
+#      example, given the synsets minke_whale.n.01, orca.n.01, novel.n.01, and tortoise.n.01, sort them
+#      according to their shortest_path_distance() from right_whale.n.01.
 
-
-
-# 19.
 from nltk.corpus import wordnet as wn
 
 syns = [wn.synset("minke_whale.n.01"), wn.synset("orca.n.01"), wn.synset("novel.n.01"), wn.synset("tortoise.n.01")]
@@ -286,7 +333,10 @@ print("\n")
 
 
 
-# 20.
+# Q20: Write a function that takes a list of words (containing duplicates) and returns a list of words (with no
+#      duplicates) sorted by decreasing frequency. E.g. if the input list contained 10 instances of the word table
+#      and 9 instances of the word chair, then table would appear before chair in the output list.
+
 def dec_freq(word_list):
     # make frequency distribution
     fdist = FreqDist()
@@ -301,7 +351,10 @@ print(dec_freq(test_array), "\n")
 
 
 
-# 21.
+# Q21: Write a function that takes a text and a vocabulary as its arguments and returns the set of words that
+#      appear in the text but not in the vocabulary. Both arguments can be represented as lists of strings. Can you
+#      do this in a single line, using set.difference()?
+
 def text_not_vocab(text, vocab):
     return set(text).difference(set(vocab))
 
@@ -311,7 +364,11 @@ print(text_not_vocab(test_text, test_vocab), "\n")
 
 
 
-# 22.
+# Q22: Import the itemgetter() function from the operator module in Python's standard library (i.e.
+#      from operator Import itemgetter). Create a list words containing several words. Now try calling:
+#      sorted(words, key=itemgetter(1)), and sorted(words, key=itemgetter(-1)). Explain what itemgetter()
+#      is doing.
+
 from operator import itemgetter
 
 words = ["some", "words", " to", "experiment", "with"]
@@ -321,16 +378,10 @@ print(f"itemgetter is selecting a specific element of each word (i.e. like the s
 
 
 
-# 23.
-# def is_unique(trie, pref):
-#     for c in pref:
-#         trie = trie[c]
-#     while len(trie)==1:
-#         key = list(trie)[0]
-#         if "value" in trie:
-#             return trie["value"]
-#         trie = trie[key]
-#     return {}
+# Q23: Write a recursive function lookup(trie, key) that looks up a key in a trie, and returns the value it finds.
+#      Extend the function to return a word when it is uniquely determined by its prefix (e.g. vanguard is the only
+#      word that starts with vang-, so lookup(trie, 'vang') should return the same thing as
+#      lookup(trie, 'vanguard')).
 
 def lookup(trie, key):
     if len(key) > 1:
@@ -368,7 +419,9 @@ print("\n")
 
 
 
-# 24.
+# Q24: Read up on "keyword linkage" (chapter 5 of (Scott & Tribble, 2006)). Extract keywords from NLTK's
+#      Shakespeare Corpus and using the NetworkX package, plot keyword linkage networks.
+
 import networkx as nx
 import matplotlib.pyplot as plt
 from nltk.corpus import shakespeare
@@ -382,7 +435,10 @@ for p in play:
 
 
 
-# 25.
+# Q25: Read about string edit distance and the Levenshtein Algorithm. Try the implementation provided in
+#      nltk.edi_distance(). In what way is this using dynamic programming? Does it use the bottom-up or top-
+#      down approach? [See also http://norvig.com/spell-correct.html]
+
 from nltk.metrics.distance import edit_distance
 
 print(edit_distance("the", "tehm"))
@@ -393,9 +449,11 @@ print("\n")
 
 
 
-# 26.
+# Q26: The Catalan numbers arise in many applications of combinatorial mathematics, including the counting of
+#      parse trees (6). The series can be defined as follows: C0 = 1, and Cn+1 = Σ0..n (CiCn-i).
 
-# a.
+# a: Write a recursive function to compute nth Catalan number Cn.
+
 def rec_cat_num(n):
     if n==0:
         return 1
@@ -405,7 +463,8 @@ def rec_cat_num(n):
             return_number += rec_cat_num(i-1)*rec_cat_num(n-i)
         return return_number
 
-# b.
+# b: Now write another function that does this computation using dynamic programming.
+
 def dyn_cat_num(n):
     lookup = {0:1}
     if n==0:
@@ -420,7 +479,8 @@ def dyn_cat_num(n):
             return_number += lookup[i-1]*lookup[n-i]
         return return_number
 
-# c.
+# c: Use the timeit module to compare the performance of these functions as n increases
+
 # import time
 
 # print(f"Recursive method")
@@ -428,6 +488,9 @@ def dyn_cat_num(n):
 #     tick = time.time()
 #     print(f"Catalan number {i}: {rec_cat_num(i)}, time: {time.time()-tick}")
 # print("\n")
+
+
+# Results:
 
 # Recursive method
 # Catalan number 0: 1, time: 9.5367431640625e-07
@@ -481,16 +544,13 @@ def dyn_cat_num(n):
 
 
 
-# 27.
+# Q29: Write a recursive function that pretty prints a trie in alphabetically sorted order, e.g.:
+#
+#      chair: 'flesh'
+#      ---t: 'cat'
+#      --ic: 'stylish'
+#      ---en: 'dog'
 
-
-
-# 28.
-# unable to find website
-
-
-
-# 29.
 # insert(trie, 'balle', 'ball')
 # insert(trie, 'chat', 'cat')
 # insert(trie, 'chat', 'cat')
@@ -514,7 +574,10 @@ def dyn_cat_num(n):
 
 
 
-# 30.
+# Q30: With the help of the trie data structure, write a recursive function that processes text, locating the
+#      uniqueness point in each word, and discarding the remainder of each word. How much compression does
+#      this give? How readable is the resulting text?
+
 def uniq_pnt(trie, text):
     # process text
     text = [word.lower() for word in text.split() if word.isalpha()]
@@ -538,11 +601,12 @@ print("\n")
 
 
 
-# 31.
+# Q32: Develop a simple extractive summarization tool, that prints the sentence of a document which contain
+#      the highest total word frequency. Use FreqDist() to count word frequencies, and use sum to sum the
+#      frequencies of the words in each sentence. Rank the sentences according to their score. Finally, print the n
+#      highest-scoring sentences in document order. Carefully review the design of your program, especially your
+#      approach to this double sorting. Make sure the program is written as clearly as possible.
 
-
-
-# 32.
 from nltk.tokenize import word_tokenize, sent_tokenize
 
 def highest_freq(text, n):
@@ -576,32 +640,6 @@ def highest_freq(text, n):
 
 print(*highest_freq("This is a test sentence. Perhaps one more sentence to be certain. So is this. This is a second sentence. Just one more sentence to test.", 3), sep="\n")
 print("\n")
-
-
-
-# 33.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
